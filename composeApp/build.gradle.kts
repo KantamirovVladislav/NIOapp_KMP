@@ -36,7 +36,9 @@ kotlin {
         
         androidMain.dependencies {
             implementation(compose.preview)
+            implementation("io.insert-koin:koin-android:3.5.3")
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -47,6 +49,9 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation("io.insert-koin:koin-core:3.5.3")
+            implementation(libs.ktor.client.core)
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -54,6 +59,14 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+        }
+        iosMain.dependencies {
+            implementation("io.insert-koin:koin-core:3.5.3")
+            implementation(libs.ktor.client.darwin)
+        }
+
+        jvmMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
         }
     }
 }
