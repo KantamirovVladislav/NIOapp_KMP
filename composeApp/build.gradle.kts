@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.invoke
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -8,6 +9,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    alias(libs.plugins.kotlinx.serialization) apply true
 }
 
 kotlin {
@@ -37,6 +39,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation("io.insert-koin:koin-android:3.5.3")
+            implementation("io.insert-koin:koin-androidx-compose:3.5.3")
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
         }
@@ -51,14 +54,25 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation("io.insert-koin:koin-core:3.5.3")
             implementation(libs.ktor.client.core)
+            implementation("com.russhwolf:multiplatform-settings:1.3.0")
+            implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
+            implementation("com.arkivanov.decompose:decompose:3.3.0")
+            implementation("com.arkivanov.decompose:extensions-compose:3.3.0")
+            implementation("com.arkivanov.essenty:lifecycle:2.5.0")
+            implementation("com.arkivanov.essenty:lifecycle-coroutines:2.5.0")
+
+            implementation("dev.icerock.moko:resources:0.25.0")
+            implementation("dev.icerock.moko:resources-compose:0.25.0")
 
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation("dev.icerock.moko:resources-test:0.25.0")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
         }
         iosMain.dependencies {
             implementation("io.insert-koin:koin-core:3.5.3")
@@ -67,6 +81,7 @@ kotlin {
 
         jvmMain.dependencies {
             implementation(libs.ktor.client.okhttp)
+            implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
         }
     }
 }
@@ -101,6 +116,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.compiler)
+    implementation(libs.androidx.datastore.preferences.core.jvm)
+    implementation(libs.androidx.ui.util.desktop)
+    implementation(libs.androidx.navigation.runtime.android)
     debugImplementation(compose.uiTooling)
 }
 

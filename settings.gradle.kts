@@ -13,6 +13,17 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
+
+}
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+
+    dependencies {
+        classpath("dev.icerock.moko:resources-generator:0.25.0")
+    }
 }
 
 dependencyResolutionManagement {
