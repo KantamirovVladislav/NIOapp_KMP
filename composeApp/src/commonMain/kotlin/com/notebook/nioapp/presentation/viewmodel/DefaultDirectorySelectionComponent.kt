@@ -20,7 +20,7 @@ class DefaultDirectorySelectionComponent(
     private val initializeStorage: InitializeStorageUseCase,
     private val selectStorageLocation: SelectStorageLocationUseCase,
     private val localStorageDataSource: LocalStorageDataSource,
-    private val onFinished: (Boolean) -> Unit,
+    private val onFinished: () -> Unit,
     mainContext: CoroutineContext,
     private val ioContext: CoroutineContext,
 ) : DirectorySelectionComponent, ComponentContext by componentContext {
@@ -44,7 +44,7 @@ class DefaultDirectorySelectionComponent(
                 val isConfigured = initializeStorage()
                 _state.update {
                     if (isConfigured) {
-                        onFinished(true)
+                        onFinished()
                         DirectorySelectionComponent.StorageState.Configured
                     } else {
                         DirectorySelectionComponent.StorageState.NeedConfiguration
@@ -103,7 +103,7 @@ class DefaultDirectorySelectionComponent(
                 val success = selectStorageLocation(directory)
                 _state.update {
                     if (success) {
-                        onFinished(true)
+                        onFinished()
                         DirectorySelectionComponent.StorageState.Configured
                     } else {
                         DirectorySelectionComponent.StorageState.Error("Failed to save directory path")

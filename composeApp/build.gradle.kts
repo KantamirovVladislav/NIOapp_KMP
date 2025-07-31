@@ -113,6 +113,15 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    android {
+        configurations {
+            all {
+                exclude(group = "androidx.compose.ui", module = "ui-util-desktop")
+                exclude(group = "com.google.guava", module = "listenablefuture")
+            }
+        }
+    }
 }
 
 dependencies {
