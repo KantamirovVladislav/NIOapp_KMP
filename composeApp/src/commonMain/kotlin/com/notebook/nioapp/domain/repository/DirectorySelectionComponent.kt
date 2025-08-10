@@ -4,11 +4,13 @@ import com.arkivanov.decompose.value.Value
 
 interface DirectorySelectionComponent {
     val state: Value<StorageState>
-    val showDirectoryDialog: Value<Boolean>
+
+    val rootPath: Value<String>
+
+    val checkPathResult: Value<Boolean>
 
     fun openDirectoryDialog()
-    fun closeDirectoryDialog()
-    fun confirmDirectorySelection(directory: String)
+    fun confirmDirectorySelection()
 
     sealed class StorageState {
         object Loading : StorageState()

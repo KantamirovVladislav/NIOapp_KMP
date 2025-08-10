@@ -7,6 +7,8 @@ import com.arkivanov.decompose.router.stack.*
 import com.arkivanov.decompose.value.Value
 import com.notebook.nioapp.domain.repository.DirectorySelectionComponent
 import com.notebook.nioapp.domain.repository.OnBoardingComponent
+import com.notebook.nioapp.domain.repository.UrlSelectionComponent
+import com.notebook.nioapp.root.RootComponent.Child.*
 import kotlinx.serialization.Serializable
 import org.koin.core.parameter.parametersOf
 import org.koin.mp.KoinPlatform.getKoin
@@ -20,6 +22,8 @@ interface RootComponent {
         class DirectorySelectionChild(val component: DirectorySelectionComponent) : Child()
 
         class OnBoarding(val component: OnBoardingComponent) : Child()
+
+        class UrlSelectionChild(val component: UrlSelectionComponent) : Child()
 
     }
 }
@@ -42,17 +46,23 @@ class RootComponentImpl(
     private fun child(config: Config, componentContext: ComponentContext): RootComponent.Child =
         when (config) {
             is Config.DirectorySelection -> {
-                RootComponent.Child.DirectorySelectionChild(directorySelectionComponent(componentContext))
+                DirectorySelectionChild(directorySelectionComponent(componentContext))
             }
 
-            is Config.OnBoarding -> RootComponent.Child.OnBoarding(onBoarding(componentContext))
+            is Config.OnBoarding -> {
+                OnBoarding(onBoarding(componentContext))
+            }
+
+            is Config.UrlSelection -> {
+                UrlSelectionChild(urlSelectionComponent(componentContext))
+            }
         }
 
     @OptIn(DelicateDecomposeApi::class)
     private fun directorySelectionComponent(componentContext: ComponentContext): DirectorySelectionComponent =
         getKoin().get<DirectorySelectionComponent> {
             parametersOf(componentContext, {
-
+                navigation.push(Config.UrlSelection)
             })
         }
 
@@ -61,6 +71,14 @@ class RootComponentImpl(
         getKoin().get<OnBoardingComponent> {
             parametersOf(componentContext, {
                 navigation.push(Config.DirectorySelection)
+            })
+        }
+
+    @OptIn(DelicateDecomposeApi::class)
+    private fun urlSelectionComponent(componentContext: ComponentContext): UrlSelectionComponent =
+        getKoin().get {
+            parametersOf(componentContext, {
+
             })
         }
 
@@ -73,6 +91,9 @@ class RootComponentImpl(
     private sealed interface Config {
         @Serializable
         data object DirectorySelection : Config
+
+        @Serializable
+        data object UrlSelection : Config
 
         @Serializable
         data object OnBoarding : Config

@@ -1,4 +1,4 @@
-package com.notebook.nioapp.presentation.viewmodel
+package com.notebook.nioapp.presentation.onBoarding
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
