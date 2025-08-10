@@ -54,6 +54,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation("io.insert-koin:koin-core:3.5.3")
             implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
             implementation("com.russhwolf:multiplatform-settings:1.3.0")
             implementation("com.russhwolf:multiplatform-settings-no-arg:1.3.0")
             implementation("com.arkivanov.decompose:decompose:3.3.0")
@@ -63,6 +65,9 @@ kotlin {
 
             implementation("dev.icerock.moko:resources:0.25.0")
             implementation("dev.icerock.moko:resources-compose:0.25.0")
+
+            implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+            implementation("io.coil-kt.coil3:coil-network-ktor3:3.3.0")
 
         }
         commonTest.dependencies {
@@ -129,6 +134,8 @@ dependencies {
     implementation(libs.androidx.datastore.preferences.core.jvm)
     implementation(libs.androidx.ui.util.desktop)
     implementation(libs.androidx.navigation.runtime.android)
+    implementation("io.ktor:ktor-client-logging:3.2.2")
+    implementation("io.ktor:ktor-client-auth:3.2.2")
     debugImplementation(compose.uiTooling)
 }
 

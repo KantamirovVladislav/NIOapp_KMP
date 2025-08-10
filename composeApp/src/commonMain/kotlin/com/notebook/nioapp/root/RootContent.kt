@@ -6,7 +6,8 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.notebook.nioapp.presentation.onBoarding.OnBoardingScreen
-import com.notebook.nioapp.presentation.viewmodel.StorageConfigurationScreen
+import com.notebook.nioapp.presentation.storageConfigurationScreen.StorageConfigurationScreen
+import com.notebook.nioapp.presentation.urlSelectionScreen.UrlSelectionScreen
 
 @Composable
 fun RootContent(component: RootComponent, modifier: Modifier = Modifier) {
@@ -18,6 +19,7 @@ fun RootContent(component: RootComponent, modifier: Modifier = Modifier) {
         when (val child = it.instance) {
             is RootComponent.Child.DirectorySelectionChild -> StorageConfigurationScreen(component = child.component)
             is RootComponent.Child.OnBoarding -> OnBoardingScreen(component = child.component)
+            is RootComponent.Child.UrlSelectionChild -> UrlSelectionScreen(component = child.component)
         }
     }
 }
